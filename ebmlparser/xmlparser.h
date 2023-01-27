@@ -1,8 +1,3 @@
-/*
-original code is from https://github.com/jonahisadev/littlexml
-It is for parsing ebml xml-file from ebml
-*/
-
 #ifndef LITTLE_XML_H
 #define LITTLE_XML_H
 
@@ -491,6 +486,23 @@ static void node_out(FILE* file, XMLNode* node, int indent, int times)
             }
         }
     }
+}
+
+int XMLDocument_write(XMLDocument* doc, const char* path, int indent)
+{
+    FILE* file = fopen(path, "w");
+    if (!file) {
+        fprintf(stderr, "Could not open file '%s'\n", path);
+        return FALSE;
+    }
+
+    fprintf(
+        file, "<?xml version=\"%s\" encoding=\"%s\" ?>\n",
+        (doc->version) ? doc->version : "1.0",
+        (doc->encoding) ? doc->encoding : "UTF-8"
+    );
+    node_out(file, doc->root, indent, 0);
+    fclose(file);
 }
 
 void XMLDocument_free(XMLDocument* doc)

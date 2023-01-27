@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<struct name="Person">
+000 <field name="name" />
+000 <field name="age" />
+000 <description>This defines a person</description>
+</struct>
