@@ -14,3 +14,12 @@
 5. understand how to display video from ebml format (~2.17)
 
 6. Reset goal (~2.20)
+
+
+2.7
+- create datastructure.h
+- print xml nodes
+
+todo
+    - write test cases
+    - test new func 

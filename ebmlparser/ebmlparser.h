@@ -9,6 +9,7 @@ It is for parsing ebml xml-file from ebml
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <datastructure.h>
 
 #ifndef TRUE
     #define TRUE 1
@@ -394,7 +395,7 @@ int XMLDocument_load(XMLDocument* doc, const char* path)
                 // curr_node change to parent of curr_node
                 curr_node = curr_node->parent;
                 i++;
-                continue;
+                continue; 
             }
 
             // Special nodes

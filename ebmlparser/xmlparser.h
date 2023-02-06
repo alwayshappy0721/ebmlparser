@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <datastructure.h>
 
 #ifndef TRUE
     #define TRUE 1
@@ -15,6 +16,7 @@
 //
 //  Definitions
 //
+
 
 int ends_with(const char* haystack, const char* needle)
 {
@@ -487,6 +489,56 @@ static void node_out(FILE* file, XMLNode* node, int indent, int times)
         }
     }
 }
+/*
+struct _XMLNodeList
+{
+    int heap_size;
+    int size;
+    struct _XMLNode** data;
+};
+*/
+
+void Xml_printout(XMLDocument* doc){
+    // print xml nodes
+    XMLNode* node= doc->root;
+    Queue* queue = NULL;
+    initQueue(queue);
+    enqueue(queue, node); // put a root node into queue
+    while(!isEmpty(queue)){
+        XMLNode* currNode = dequeue(queue);
+        node_print(currNode);
+        for(int i=0; i < currNode->children.size ; i++){
+            XMLNode* node = XMLNodeList_at(&currNode->children, i);
+            enqueue(queue, node);
+        }
+    }
+}
+
+/*
+struct _XMLNode
+{
+    char* tag;
+    char* inner_text;
+    struct _XMLNode* parent;
+    XMLAttributeList attributes;
+    XMLNodeList children;
+};
+*/
+
+void node_print(XMLNode* node){
+    // print node 
+    printf("tag : %s \ninner_text : %s\n", node->tag, node->inner_text);
+}
+
+
+/*
+struct _XMLDocument
+{
+    XMLNode* root;
+    char* version;
+    char* encoding;
+};
+*/
 
 int XMLDocument_write(XMLDocument* doc, const char* path, int indent)
 {
